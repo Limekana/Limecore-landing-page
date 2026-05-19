@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Limecore — Independent Software Studio</title>
+  <title>Limecore — A personal OS suite, built in high school</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -57,6 +57,7 @@
     }
     .nav-links a:hover { color: var(--accent); }
 
+    /* HERO */
     #hero {
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -85,13 +86,20 @@
     }
     .hero-wordmark span { color: var(--accent); }
     .hero-tagline {
-      font-family: var(--fmono); font-size: clamp(0.75rem, 2vw, 0.9rem);
-      color: var(--muted); letter-spacing: 0.08em; margin-bottom: 52px;
+      font-family: var(--fdisplay); font-weight: 400;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      color: var(--text); letter-spacing: 0; margin-bottom: 14px;
       opacity: 0; animation: fadeUp 0.6s ease forwards 0.55s;
+    }
+    .hero-subline {
+      font-family: var(--fmono); font-size: clamp(0.7rem, 1.4vw, 0.82rem);
+      color: var(--muted); letter-spacing: 0.04em; line-height: 1.7;
+      max-width: 620px; margin: 0 auto 52px;
+      opacity: 0; animation: fadeUp 0.6s ease forwards 0.65s;
     }
     .hero-actions {
       display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.6s ease forwards 0.7s;
+      opacity: 0; animation: fadeUp 0.6s ease forwards 0.75s;
     }
     .scanline {
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -118,6 +126,8 @@
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* SECTIONS */
     section { position: relative; z-index: 1; padding: 120px 48px; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 56px; }
@@ -137,14 +147,17 @@
     .project-num { font-family: var(--fmono); font-size: 0.6rem; color: var(--accent); opacity: 0.55; letter-spacing: 0.2em; }
     .project-name { font-family: var(--fdisplay); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.01em; text-transform: uppercase; }
     .project-desc { font-family: var(--fmono); font-size: 0.72rem; color: var(--muted); line-height: 1.75; flex: 1; }
-    .project-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 18px; border-top: 1px solid var(--border); }
-    .status-badge { font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 12px; border: 1px solid; }
+    .project-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 18px; border-top: 1px solid var(--border); gap: 12px; flex-wrap: wrap; }
+    .status-badge { font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 12px; border: 1px solid; white-space: nowrap; }
     .status-badge.live     { color: var(--accent); border-color: var(--accent); }
     .status-badge.personal { color: var(--muted);  border-color: var(--border); }
     .status-badge.ice      { color: #7da8f0; border-color: #3b5fc0; }
     .status-badge.wip      { color: #f59e0b; border-color: #d97706; }
-    .project-link { font-family: var(--fmono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .status-badge.paused   { color: #737373; border-color: #404040; }
+    .status-badge.local    { color: var(--accent); border-color: rgba(163,230,53,0.4); }
+    .project-link { font-family: var(--fmono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; text-decoration: none; }
     .project-card:hover .project-link { color: var(--accent); }
+    .card-links { display: flex; gap: 14px; }
 
     /* TECH CHIPS */
     .chips { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -156,6 +169,32 @@
     }
     .project-card:hover .chip,
     .project-featured:hover .chip { border-color: rgba(163,230,53,0.32); color: #c9d8a3; }
+
+    /* CARD HERO IMAGE (LimeLog, StudyDesk) */
+    .card-hero {
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(180deg, #0f0f0f 0%, #080808 100%);
+      border: 1px solid var(--border);
+      margin: -36px -32px 6px -32px;
+      position: relative; overflow: hidden;
+    }
+    .card-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(163,230,53,0.05) 1px, transparent 1px);
+      background-size: 100% 24px;
+      pointer-events: none; opacity: 0.5;
+    }
+    .card-hero-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--fmono); font-size: 0.55rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted); text-align: center;
+    }
+    .card-hero-placeholder::before {
+      content: ''; display: inline-block;
+      width: 6px; height: 6px; background: var(--accent); opacity: 0.5;
+      margin-right: 10px;
+    }
 
     /* FEATURED PROJECT (Nexus) */
     .featured-wrap {
@@ -184,10 +223,6 @@
     .project-featured:hover::before { height: 100%; }
     .featured-content { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
     .featured-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .featured-label {
-      font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent);
-    }
     .featured-title {
       font-family: var(--fdisplay); font-weight: 700;
       font-size: clamp(1.7rem, 3.2vw, 2.2rem);
@@ -208,7 +243,7 @@
       border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px;
     }
 
-    /* SCREEN FRAMES */
+    /* SCREEN FRAMES (Nexus screenshots) */
     .featured-screens {
       display: flex; gap: 14px; align-items: flex-end; justify-content: center;
       padding: 4px 0;
@@ -250,6 +285,66 @@
     .project-featured:hover .screen-item:nth-child(2) { transform: translateY(-10px); }
     .project-featured:hover .screen-item:nth-child(3) { transform: translateY(-6px); }
 
+    /* SUITE SECTION (02 /) */
+    .suite-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .suite-headline { font-family: var(--fdisplay); font-weight: 700; font-size: clamp(1.3rem, 2.6vw, 1.7rem); letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 28px; }
+    .suite-headline strong { color: var(--accent); font-weight: 700; }
+    .suite-copy p { font-family: var(--fmono); font-size: 0.78rem; color: var(--muted); line-height: 1.95; margin-bottom: 18px; }
+    .suite-copy p:last-child { margin-bottom: 0; }
+    .suite-copy strong { color: var(--text); font-weight: 700; }
+    .suite-diagram {
+      border: 1px solid var(--border); background: var(--bg);
+      padding: 24px; position: relative;
+    }
+    .suite-diagram::after {
+      content: ''; position: absolute; top: -1px; right: -1px;
+      width: 22px; height: 22px;
+      border-top: 1px solid var(--accent); border-right: 1px solid var(--accent);
+      opacity: 0.45; pointer-events: none;
+    }
+    .suite-diagram svg { width: 100%; height: auto; display: block; }
+    .suite-diagram-caption {
+      font-family: var(--fmono); font-size: 0.55rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 16px; text-align: center;
+    }
+
+    /* HOW I BUILD SECTION (03 /) */
+    .build-layout { display: grid; grid-template-columns: 200px 1fr; gap: 80px; }
+    .build-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .build-tag { font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); padding-left: 14px; border-left: 2px solid var(--accent); }
+    .build-tag-muted { color: var(--muted); border-left-color: var(--border); }
+    .build-copy p { font-family: var(--fmono); font-size: 0.78rem; color: var(--muted); line-height: 1.95; margin-bottom: 18px; }
+    .build-copy p:last-child { margin-bottom: 0; }
+    .build-copy strong { color: var(--text); font-weight: 700; }
+    .build-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 12px;
+      font-family: var(--fmono); font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      border: 1px solid var(--border); padding: 10px 16px;
+      transition: all 0.2s;
+    }
+    .build-link:hover { border-color: var(--accent); color: var(--accent); }
+    .build-link-note { font-family: var(--fmono); font-size: 0.6rem; color: var(--muted); margin-left: 12px; opacity: 0.6; }
+
+    /* SIDE EXPERIMENTS RAIL (Krata) */
+    .side-rail { margin-top: 48px; }
+    .side-rail-header { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+    .side-rail-label { font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .side-rail-items { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .side-item {
+      background: var(--bg); padding: 18px 24px;
+      display: grid; grid-template-columns: 60px 1fr auto auto;
+      align-items: center; gap: 20px;
+      transition: background 0.2s;
+    }
+    .side-item:hover { background: var(--surface); }
+    .side-num { font-family: var(--fmono); font-size: 0.55rem; color: var(--muted); opacity: 0.55; letter-spacing: 0.2em; }
+    .side-name { font-family: var(--fdisplay); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: -0.005em; }
+    .side-desc { font-family: var(--fmono); font-size: 0.68rem; color: var(--muted); line-height: 1.6; }
+    .side-status { font-family: var(--fmono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border); color: var(--muted); }
+
     /* ABOUT */
     .about-layout { display: grid; grid-template-columns: 200px 1fr; gap: 80px; }
     .about-sidebar { display: flex; flex-direction: column; gap: 40px; }
@@ -261,11 +356,13 @@
     .tag { font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--border); color: var(--muted); }
 
     /* FOOTER */
-    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; gap: 32px; }
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
     .footer-logo { font-family: var(--fdisplay); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
     .footer-meta { font-family: var(--fmono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; margin-left: auto; }
+    .footer-links { display: flex; gap: 20px; align-items: center; }
     .footer-link { font-family: var(--fmono); font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
     .footer-link:hover { color: var(--accent); }
+    .footer-link-todo { opacity: 0.45; cursor: not-allowed; }
 
     /* REVEAL */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -274,16 +371,21 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
 
-    @media (max-width: 900px) {
+    @media (max-width: 960px) {
       .project-featured { grid-template-columns: 1fr; padding: 36px 28px; gap: 32px; }
       .featured-screens { gap: 10px; }
+      .suite-layout { grid-template-columns: 1fr; gap: 40px; }
+      .build-layout { grid-template-columns: 1fr; gap: 32px; }
     }
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
       section { padding: 80px 24px; }
       .about-layout { grid-template-columns: 1fr; gap: 48px; }
+      .side-item { grid-template-columns: 1fr; gap: 8px; padding: 16px 18px; }
+      .side-num { font-size: 0.5rem; }
       footer { padding: 24px; flex-wrap: wrap; }
+      .footer-meta { margin-left: 0; width: 100%; order: 99; }
     }
     ::selection { background: var(--accent); color: #0A0A0A; }
     ::-webkit-scrollbar { width: 4px; }
@@ -298,11 +400,14 @@
     <button class="nav-logo" onclick="go(null,'hero')">Limecore</button>
     <ul class="nav-links">
       <li><a href="#projects" onclick="go(event,'projects')">Projects</a></li>
+      <li><a href="#suite"    onclick="go(event,'suite')">The Suite</a></li>
+      <li><a href="#build"    onclick="go(event,'build')">How I build</a></li>
       <li><a href="#about"    onclick="go(event,'about')">About</a></li>
       <li><a href="https://github.com/Limekana" target="_blank" rel="noopener">GitHub ↗</a></li>
     </ul>
   </nav>
 
+  <!-- HERO -->
   <section id="hero">
     <div class="scanline"></div>
     <p class="hero-eyebrow">Est. 2026 · Helsinki</p>
@@ -316,7 +421,8 @@
     </div>
 
     <h1 class="hero-wordmark">Lime<span>core</span></h1>
-    <p class="hero-tagline">Independent software studio. Helsinki.</p>
+    <p class="hero-tagline">A personal OS suite, built in high school.</p>
+    <p class="hero-subline">Three apps that sync to each other over Realtime. Local-first. Open source. Helsinki.</p>
 
     <div class="hero-actions">
       <button class="btn btn-primary" onclick="go(event,'projects')">View Projects</button>
@@ -324,6 +430,7 @@
     </div>
   </section>
 
+  <!-- 01 / PROJECTS -->
   <section id="projects">
     <div class="section-inner">
       <div class="section-header reveal">
@@ -332,16 +439,16 @@
         <div class="section-line"></div>
       </div>
 
+      <!-- Featured: Nexus Command Center -->
       <div class="featured-wrap reveal">
         <div class="project-featured">
           <div class="featured-content">
             <div class="featured-meta">
               <span class="project-num">001</span>
-              <span class="featured-label">Studio piece · Featured</span>
             </div>
             <div class="featured-title">Nexus Command Center</div>
             <p class="featured-tagline">A local-first life dashboard. Finance, studies, fitness, and tasks — synchronised across your devices, powered by your own API keys.</p>
-            <p class="featured-blurb">Personal life dashboard for Android pulling finance, studies, fitness, and tasks under one roof. Dexie + Supabase realtime sync, zero cost-per-user (BYO keys), multi-provider market data with fallback, biometric unlock, and cross-module weekly reviews that single-purpose apps can't surface.</p>
+            <p class="featured-blurb">The hub of the suite. Reads workouts from LimeLog and study hours from StudyDesk over Supabase Realtime, plus its own finance, tasks, and goals modules. Dexie + IndexedDB local-first, BYO API keys, biometric unlock, cross-module weekly reviews that single-purpose apps can't surface.</p>
             <div class="chips">
               <span class="chip">React</span>
               <span class="chip">TypeScript</span>
@@ -352,8 +459,12 @@
               <span class="chip">Zustand</span>
             </div>
             <div class="featured-footer">
-              <span class="status-badge personal">Personal · Single-user</span>
-              <span class="project-link">Details soon ↗</span>
+              <span class="status-badge local">Local-first</span>
+              <div class="card-links">
+                <!-- TODO: replace # with Nexus GitHub URL when the repo goes public -->
+                <a href="#" class="project-link" aria-label="Nexus on GitHub (placeholder)">GitHub ↗</a>
+                <!-- TODO: insert F-Droid badge when submission is accepted -->
+              </div>
             </div>
           </div>
           <div class="featured-screens">
@@ -373,12 +484,15 @@
         </div>
       </div>
 
+      <!-- Main grid: LimeLog, StudyDesk, AI Weekly -->
       <div class="projects-grid">
 
         <div class="project-card reveal reveal-delay-1">
+          <!-- TODO: add LimeLog hero screenshot at /LimeLog_hero.png (the "Lock in" workout mode is the strongest visual) -->
+          <div class="card-hero card-hero-placeholder"><span>TODO · LimeLog hero</span></div>
           <span class="project-num">002</span>
           <div class="project-name">LimeLog</div>
-          <p class="project-desc">Periodized workout tracker built for competitive athletes. Log sets, track vertical jump, manage injury restrictions, and get phase-aware progression insights — all in one app.</p>
+          <p class="project-desc">Periodized workout tracker built for competitive athletes. Log sets, track vertical jump, manage injury restrictions, and get phase-aware progression insights. Writes into Nexus Fitness over Realtime.</p>
           <div class="chips">
             <span class="chip">React</span>
             <span class="chip">TypeScript</span>
@@ -388,13 +502,39 @@
           </div>
           <div class="project-footer">
             <span class="status-badge wip">In progress</span>
+            <div class="card-links">
+              <!-- TODO: replace # with LimeLog GitHub URL when the repo goes public -->
+              <a href="#" class="project-link" aria-label="LimeLog on GitHub (placeholder)">GitHub ↗</a>
+              <!-- TODO: insert F-Droid badge when submission is accepted -->
+            </div>
           </div>
         </div>
 
-        <a href="https://localaiweekly-mrdqsorq.manus.space/" target="_blank" rel="noopener" class="project-card reveal reveal-delay-2">
+        <a href="https://github.com/Limekana/StudyDesk/tree/main" target="_blank" rel="noopener" class="project-card reveal reveal-delay-2">
+          <!-- TODO: add StudyDesk hero screenshot at /StudyDesk_hero.png (course list with grades, or the Pomodoro "Save session?" sheet) -->
+          <div class="card-hero card-hero-placeholder"><span>TODO · StudyDesk hero</span></div>
           <span class="project-num">003</span>
+          <div class="project-name">StudyDesk</div>
+          <p class="project-desc">Study planner for IB (1–7) and US (4.0) grading. Course list, Pomodoro logger, session journal. Writes into Nexus Studies over Realtime — what you log here surfaces in the hub.</p>
+          <div class="chips">
+            <span class="chip">React</span>
+            <span class="chip">Capacitor</span>
+            <span class="chip">Supabase</span>
+            <span class="chip">Android</span>
+          </div>
+          <div class="project-footer">
+            <span class="status-badge local">Local-first</span>
+            <div class="card-links">
+              <span class="project-link">GitHub ↗</span>
+              <!-- TODO: insert F-Droid badge when submission is accepted -->
+            </div>
+          </div>
+        </a>
+
+        <a href="https://localaiweekly-mrdqsorq.manus.space/" target="_blank" rel="noopener" class="project-card reveal reveal-delay-3">
+          <span class="project-num">004</span>
           <div class="project-name">AI Weekly</div>
-          <p class="project-desc">Weekly intelligence brief for locally-runnable AI models. What's worth running on your hardware this week.</p>
+          <p class="project-desc">Weekly intelligence brief for locally-runnable AI models. What's worth running on your hardware this week. Separate from the suite — a live demo, not an Android app.</p>
           <div class="chips">
             <span class="chip">React 19</span>
             <span class="chip">Vite</span>
@@ -408,45 +548,129 @@
           </div>
         </a>
 
-        <a href="https://github.com/Limekana/StudyDesk/tree/main" target="_blank" rel="noopener" class="project-card reveal reveal-delay-3">
-          <span class="project-num">004</span>
-          <div class="project-name">StudyDesk</div>
-          <p class="project-desc">Android study execution app. Tells you what to do next. No friction, no decision fatigue — just the next task.</p>
-          <div class="chips">
-            <span class="chip">React</span>
-            <span class="chip">Capacitor</span>
-            <span class="chip">Supabase</span>
-            <span class="chip">Android</span>
-          </div>
-          <div class="project-footer">
-            <span class="status-badge personal">Personal tool</span>
-            <span class="project-link">GitHub ↗</span>
-          </div>
-        </a>
+      </div>
 
-        <div class="project-card reveal reveal-delay-3">
-          <span class="project-num">005</span>
-          <div class="project-name">Krata</div>
-          <p class="project-desc">Project-scoped AI command center. Bloomberg terminal for thinking. Structured, fast, no bloat.</p>
-          <div class="chips">
-            <span class="chip">React</span>
-            <span class="chip">Next.js</span>
-            <span class="chip">Claude API</span>
-            <span class="chip">MCP</span>
+      <!-- Side experiments rail -->
+      <div class="side-rail reveal">
+        <div class="side-rail-header">
+          <span class="side-rail-label">// Side experiments</span>
+          <div class="section-line"></div>
+        </div>
+        <div class="side-rail-items">
+          <div class="side-item">
+            <span class="side-num">x01</span>
+            <div>
+              <div class="side-name">Krata</div>
+              <p class="side-desc">Project-scoped AI command center. Bloomberg terminal for thinking. Structured, fast, no bloat.</p>
+            </div>
+            <span class="side-status">Paused</span>
           </div>
-          <div class="project-footer">
-            <span class="status-badge ice">On ice</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 02 / THE SUITE -->
+  <section id="suite">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-label">02 /</span>
+        <h2 class="section-title">The Suite</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="suite-layout">
+        <div class="reveal">
+          <p class="suite-headline">Three apps, <strong>one data graph.</strong></p>
+          <div class="suite-copy">
+            <p>LimeLog logs your set. StudyDesk logs your Pomodoro. Both write into the same Supabase project. <strong>Nexus Command Center</strong> reads — workouts surface in Fitness, study hours surface in Studies, weekly reviews pull from both. Cross-app updates land in <strong>~1.5 seconds</strong> via Realtime, last-write-wins, offline outbox queued.</p>
+            <p>Local-first via Dexie / IndexedDB. Cloud sync over Supabase. End-to-end identity with email/password or Google OAuth. Biometric unlock and PBKDF2-SHA256 PIN with tiered brute-force lockouts on the hub.</p>
+            <p>No third-party data brokers. No subscription. Bring your own API keys for market data. The whole stack costs zero per user beyond what you choose to pay your providers.</p>
           </div>
         </div>
 
+        <div class="reveal reveal-delay-1">
+          <div class="suite-diagram">
+            <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sync architecture: LimeLog and StudyDesk write to Supabase Realtime; Nexus Command Center reads at ~1.5 second latency">
+              <defs>
+                <pattern id="diagGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#A3E635" stroke-opacity="0.06" stroke-width="0.5"/>
+                </pattern>
+                <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 Z" fill="#A3E635"/>
+                </marker>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#diagGrid)"/>
+
+              <!-- LimeLog -->
+              <rect x="14" y="28" width="150" height="54" fill="none" stroke="#A3E635" stroke-width="1"/>
+              <text x="89" y="54" text-anchor="middle" fill="#F5F5F5" font-family="Oxanium, sans-serif" font-weight="700" font-size="15">LimeLog</text>
+              <text x="89" y="71" text-anchor="middle" fill="#737373" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">WRITER</text>
+
+              <!-- StudyDesk -->
+              <rect x="14" y="138" width="150" height="54" fill="none" stroke="#A3E635" stroke-width="1"/>
+              <text x="89" y="164" text-anchor="middle" fill="#F5F5F5" font-family="Oxanium, sans-serif" font-weight="700" font-size="15">StudyDesk</text>
+              <text x="89" y="181" text-anchor="middle" fill="#737373" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">WRITER</text>
+
+              <!-- Supabase Realtime (center) -->
+              <rect x="230" y="83" width="150" height="54" fill="#A3E635" fill-opacity="0.06" stroke="#A3E635" stroke-width="1" stroke-dasharray="4 3"/>
+              <text x="305" y="109" text-anchor="middle" fill="#A3E635" font-family="Oxanium, sans-serif" font-weight="700" font-size="14">Supabase</text>
+              <text x="305" y="126" text-anchor="middle" fill="#A3E635" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">REALTIME · ~1.5s</text>
+
+              <!-- Nexus -->
+              <rect x="446" y="83" width="150" height="54" fill="none" stroke="#A3E635" stroke-width="1.5"/>
+              <text x="521" y="106" text-anchor="middle" fill="#F5F5F5" font-family="Oxanium, sans-serif" font-weight="700" font-size="15">Nexus</text>
+              <text x="521" y="124" text-anchor="middle" fill="#A3E635" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">HUB · READER</text>
+
+              <!-- Arrows in -->
+              <path d="M 164 55 L 225 95" fill="none" stroke="#A3E635" stroke-width="1.1" stroke-opacity="0.65" marker-end="url(#arrowHead)"/>
+              <path d="M 164 165 L 225 125" fill="none" stroke="#A3E635" stroke-width="1.1" stroke-opacity="0.65" marker-end="url(#arrowHead)"/>
+              <!-- Arrow out -->
+              <path d="M 380 110 L 441 110" fill="none" stroke="#A3E635" stroke-width="1.2" stroke-opacity="0.75" marker-end="url(#arrowHead)"/>
+            </svg>
+            <div class="suite-diagram-caption">// last-write-wins · offline outbox · ~1.5s p50 latency</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- 03 / HOW I BUILD -->
+  <section id="build">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-label">03 /</span>
+        <h2 class="section-title">How I build</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="build-layout">
+        <div class="build-sidebar reveal">
+          <div class="build-tag">AI-in-the-loop</div>
+          <div class="build-tag">Local-first</div>
+          <div class="build-tag">TypeScript</div>
+          <div class="build-tag build-tag-muted">Real device, not just emulator</div>
+        </div>
+
+        <div class="reveal reveal-delay-1">
+          <div class="build-copy">
+            <p>Limecore ships fast because most of it is built with AI in the loop. <strong>Claude and Cursor</strong> write a serious share of the code; my job is architecture, taste, and the boring 20% that decides whether a thing is actually shippable.</p>
+            <p>Local-first by default, because cloud-first SaaS is what these apps are reactions against. TypeScript everywhere. Tested on a real Android device, not just emulators. Every release on every app goes through the same security checklist: CSP, secret-detection pre-commit, AndroidManifest hardening, source maps off in production.</p>
+            <p>Build logs and architecture writeups coming soon.</p>
+          </div>
+          <!-- TODO: change href to /blog when the blog ships (first post target: Realtime cross-app sync architecture, ~2 weeks) -->
+          <a href="#" class="build-link" aria-label="Blog (placeholder)">Blog ↗<span class="build-link-note">soon</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 / ABOUT -->
   <section id="about">
     <div class="section-inner">
       <div class="section-header reveal">
-        <span class="section-label">02 /</span>
+        <span class="section-label">04 /</span>
         <h2 class="section-title">About</h2>
         <div class="section-line"></div>
       </div>
@@ -463,17 +687,17 @@
         </div>
         <div class="reveal">
           <p class="about-text">
-            Limecore is a one-person indie studio based in Helsinki. Building tools that don't exist yet — life dashboards, training systems, study apps, AI infrastructure.
+            Limecore is a one-person studio based in Helsinki, run by a high-school student learning to ship real software in production. Tools that don't exist yet — life dashboards, training systems, study apps, AI infrastructure.
             <br/><br/>
-            Local-first by default. Secure at rest. Designed for one person at a time, architected for more. Not built for portfolios — built because the existing options are too slow, too bloated, or too generic. Everything ships under <strong>Limecore</strong>.
+            Local-first by default. Secure at rest. Designed for one person at a time, architected for more. Built because the existing options are too slow, too bloated, or too generic — and to learn what real shipping actually takes. Everything ships under <strong>Limecore</strong>.
           </p>
           <div class="about-tags">
             <span class="tag">Android</span>
             <span class="tag">Local-first</span>
+            <span class="tag">Open source</span>
             <span class="tag">Life dashboards</span>
             <span class="tag">AI/LLM</span>
             <span class="tag">Fitness</span>
-            <span class="tag">Tooling</span>
           </div>
         </div>
       </div>
@@ -482,8 +706,14 @@
 
   <footer>
     <span class="footer-logo">Limecore</span>
+    <div class="footer-links">
+      <a href="https://github.com/Limekana" target="_blank" rel="noopener" class="footer-link">GitHub ↗</a>
+      <!-- TODO: replace # with X handle when handle is created -->
+      <a href="#" class="footer-link footer-link-todo" aria-label="X / Twitter (placeholder)">X ↗</a>
+      <!-- TODO: replace # with confirmed email (hello@limecore.dev candidate) -->
+      <a href="#" class="footer-link footer-link-todo" aria-label="Email (placeholder)">Email ↗</a>
+    </div>
     <span class="footer-meta">Helsinki · 2026</span>
-    <a href="https://github.com/Limekana" target="_blank" rel="noopener" class="footer-link">GitHub ↗</a>
   </footer>
 
   <script>
