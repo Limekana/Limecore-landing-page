@@ -7,7 +7,7 @@ Independent software studio landing page. Single `index.html`, deployed via Verc
 - [ ] **Migrate to a real domain** — currently on `limecore.vercel.app`. For HN, r/selfhosted, X build-in-public distribution, swap to `limecore.dev` / `.studio` / `.fi`. Prerequisite for the public launch push.
 - [x] ~~Add LimeLog hero screenshot~~ — Lock in + Phases shipped.
 - [x] ~~Add StudyDesk hero screenshot~~ — Grades + Pomodoro shipped.
-- [ ] Open-source LimeLog and Nexus repos; wire real GitHub URLs into the card link slots.
+- [x] ~~Open-source LimeLog and Nexus repos; wire real GitHub URLs into the card link slots.~~ — live and linked.
 - [ ] Flip on F-Droid badges as submissions are accepted (LimeLog, StudyDesk, Nexus).
 - [x] ~~Ship `/blog`~~ — live at `/blog/`, first post "Vibe coding through high school" at `/blog/vibe-coding-through-high-school/`. (Cross-app sync architecture post still pending as post 002.)
 - [ ] Replace footer X and Email placeholders with real handle / address.
