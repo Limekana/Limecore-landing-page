@@ -170,31 +170,24 @@
     .project-card:hover .chip,
     .project-featured:hover .chip { border-color: rgba(163,230,53,0.32); color: #c9d8a3; }
 
-    /* CARD HERO IMAGE (LimeLog, StudyDesk) */
-    .card-hero {
-      aspect-ratio: 16 / 10;
+    /* IN-CARD SCREEN STRIP (LimeLog, StudyDesk) */
+    .card-screens {
+      display: flex; gap: 10px;
+      margin: -36px -32px 8px -32px;
+      padding: 18px 16px 12px;
       background: linear-gradient(180deg, #0f0f0f 0%, #080808 100%);
-      border: 1px solid var(--border);
-      margin: -36px -32px 6px -32px;
-      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      position: relative;
     }
-    .card-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card-hero::after {
+    .card-screens::after {
       content: ''; position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(163,230,53,0.05) 1px, transparent 1px);
-      background-size: 100% 24px;
-      pointer-events: none; opacity: 0.5;
+      background-image: linear-gradient(rgba(163,230,53,0.04) 1px, transparent 1px);
+      background-size: 100% 22px;
+      pointer-events: none; opacity: 0.45;
     }
-    .card-hero-placeholder {
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--fmono); font-size: 0.55rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--muted); text-align: center;
-    }
-    .card-hero-placeholder::before {
-      content: ''; display: inline-block;
-      width: 6px; height: 6px; background: var(--accent); opacity: 0.5;
-      margin-right: 10px;
-    }
+    .card-screens .screen-item { flex: 1; min-width: 0; }
+    .card-screens .screen-frame { border-radius: 10px; }
+    .card-screens .screen-caption { font-size: 0.5rem; letter-spacing: 0.2em; margin-top: 6px; }
 
     /* FEATURED PROJECT (Nexus) */
     .featured-wrap {
@@ -211,7 +204,7 @@
     }
     .project-featured {
       display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px;
-      padding: 48px 44px; position: relative; overflow: hidden;
+      padding: 48px 44px 40px; position: relative; overflow: hidden;
       text-decoration: none; color: inherit;
       transition: background 0.25s;
     }
@@ -243,10 +236,9 @@
       border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px;
     }
 
-    /* SCREEN FRAMES (Nexus screenshots) */
-    .featured-screens {
-      display: flex; gap: 14px; align-items: flex-end; justify-content: center;
-      padding: 4px 0;
+    /* MAIN SCREENS (2 large phones, right column) */
+    .featured-screens-main {
+      display: flex; gap: 16px; align-items: flex-end; justify-content: center;
     }
     .screen-item {
       display: flex; flex-direction: column; gap: 12px;
@@ -281,9 +273,28 @@
       box-shadow: 0 12px 32px -16px rgba(163,230,53,0.25);
     }
     .project-featured:hover .screen-caption { color: var(--accent); }
-    .project-featured:hover .screen-item:nth-child(1) { transform: translateY(-6px); }
-    .project-featured:hover .screen-item:nth-child(2) { transform: translateY(-10px); }
-    .project-featured:hover .screen-item:nth-child(3) { transform: translateY(-6px); }
+    .project-featured:hover .featured-screens-main .screen-item:nth-child(1) { transform: translateY(-6px); }
+    .project-featured:hover .featured-screens-main .screen-item:nth-child(2) { transform: translateY(-10px); }
+
+    /* THUMBNAIL STRIP (3 smaller phones, below featured row) */
+    .featured-thumbs {
+      display: flex; gap: 14px; justify-content: center;
+      padding: 24px 44px 36px;
+      border-top: 1px solid var(--border);
+      background: rgba(15, 15, 15, 0.4);
+    }
+    .featured-thumbs .screen-item { flex: 0 1 180px; opacity: 0.85; transition: opacity 0.3s, transform 0.3s; }
+    .featured-thumbs .screen-item:hover { opacity: 1; }
+    .featured-thumbs .screen-frame { border-radius: 10px; }
+    .featured-thumbs .screen-caption { font-size: 0.5rem; letter-spacing: 0.2em; }
+    .featured-thumbs-label {
+      align-self: center;
+      font-family: var(--fmono); font-size: 0.55rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted);
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      padding-right: 8px;
+      opacity: 0.7;
+    }
 
     /* SUITE SECTION (02 /) */
     .suite-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
@@ -335,7 +346,7 @@
     .side-rail-items { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
     .side-item {
       background: var(--bg); padding: 18px 24px;
-      display: grid; grid-template-columns: 60px 1fr auto auto;
+      display: grid; grid-template-columns: 60px 1fr auto;
       align-items: center; gap: 20px;
       transition: background 0.2s;
     }
@@ -371,9 +382,60 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
 
+    /* LIGHTBOX */
+    .zoomable { cursor: zoom-in; }
+    .lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(5, 5, 5, 0.94);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 56px 40px 40px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      cursor: zoom-out;
+    }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(163,230,53,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(163,230,53,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .lightbox-img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 80px -20px rgba(163,230,53,0.35);
+      transform: scale(0.96);
+      transition: transform 0.3s ease;
+      cursor: zoom-out;
+    }
+    .lightbox.open .lightbox-img { transform: scale(1); }
+    .lightbox-caption {
+      position: absolute; bottom: 18px; left: 0; right: 0;
+      text-align: center;
+      font-family: var(--fmono); font-size: 0.62rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted);
+      pointer-events: none;
+    }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      width: 40px; height: 40px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer;
+      font-family: var(--fdisplay); font-size: 1.4rem; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+
     @media (max-width: 960px) {
       .project-featured { grid-template-columns: 1fr; padding: 36px 28px; gap: 32px; }
-      .featured-screens { gap: 10px; }
+      .featured-screens-main { gap: 12px; }
+      .featured-thumbs { padding: 20px 28px 28px; flex-wrap: wrap; }
       .suite-layout { grid-template-columns: 1fr; gap: 40px; }
       .build-layout { grid-template-columns: 1fr; gap: 32px; }
     }
@@ -386,6 +448,7 @@
       .side-num { font-size: 0.5rem; }
       footer { padding: 24px; flex-wrap: wrap; }
       .footer-meta { margin-left: 0; width: 100%; order: 99; }
+      .lightbox { padding: 48px 16px 24px; }
     }
     ::selection { background: var(--accent); color: #0A0A0A; }
     ::-webkit-scrollbar { width: 4px; }
@@ -467,19 +530,33 @@
               </div>
             </div>
           </div>
-          <div class="featured-screens">
+
+          <!-- Main: 2 large priority screenshots -->
+          <div class="featured-screens-main">
             <div class="screen-item">
-              <div class="screen-frame"><img src="Portfolio.png" alt="Nexus portfolio screen" loading="lazy"/></div>
-              <div class="screen-caption">Portfolio</div>
+              <div class="screen-frame"><img class="zoomable" src="Nexus_HQ_Home_Main.png" alt="Nexus Home screen" loading="lazy"/></div>
+              <div class="screen-caption">Home</div>
             </div>
             <div class="screen-item">
-              <div class="screen-frame"><img src="Weekly_review.png" alt="Nexus weekly review screen" loading="lazy"/></div>
-              <div class="screen-caption">Weekly Review</div>
+              <div class="screen-frame"><img class="zoomable" src="Nexus_HQ_Goals_Main.png" alt="Nexus Goals screen" loading="lazy"/></div>
+              <div class="screen-caption">Goals</div>
             </div>
-            <div class="screen-item">
-              <div class="screen-frame"><img src="What_if.png" alt="Nexus what-if simulator screen" loading="lazy"/></div>
-              <div class="screen-caption">What-If</div>
-            </div>
+          </div>
+        </div>
+
+        <!-- Thumbnail strip: smaller secondary screenshots -->
+        <div class="featured-thumbs">
+          <div class="screen-item">
+            <div class="screen-frame"><img class="zoomable" src="Portfolio.png" alt="Nexus portfolio screen" loading="lazy"/></div>
+            <div class="screen-caption">Portfolio</div>
+          </div>
+          <div class="screen-item">
+            <div class="screen-frame"><img class="zoomable" src="Weekly_review.png" alt="Nexus weekly review screen" loading="lazy"/></div>
+            <div class="screen-caption">Weekly Review</div>
+          </div>
+          <div class="screen-item">
+            <div class="screen-frame"><img class="zoomable" src="What_if.png" alt="Nexus what-if simulator screen" loading="lazy"/></div>
+            <div class="screen-caption">What-If</div>
           </div>
         </div>
       </div>
@@ -488,8 +565,16 @@
       <div class="projects-grid">
 
         <div class="project-card reveal reveal-delay-1">
-          <!-- TODO: add LimeLog hero screenshot at /LimeLog_hero.png (the "Lock in" workout mode is the strongest visual) -->
-          <div class="card-hero card-hero-placeholder"><span>TODO · LimeLog hero</span></div>
+          <div class="card-screens">
+            <div class="screen-item">
+              <div class="screen-frame"><img class="zoomable" src="Limelog_Lockin.png" alt="LimeLog Lock In mode" loading="lazy"/></div>
+              <div class="screen-caption">Lock in</div>
+            </div>
+            <div class="screen-item">
+              <div class="screen-frame"><img class="zoomable" src="Limelog_Phases.png" alt="LimeLog phases view" loading="lazy"/></div>
+              <div class="screen-caption">Phases</div>
+            </div>
+          </div>
           <span class="project-num">002</span>
           <div class="project-name">LimeLog</div>
           <p class="project-desc">Periodized workout tracker built for competitive athletes. Log sets, track vertical jump, manage injury restrictions, and get phase-aware progression insights. Writes into Nexus Fitness over Realtime.</p>
@@ -511,8 +596,16 @@
         </div>
 
         <a href="https://github.com/Limekana/StudyDesk/tree/main" target="_blank" rel="noopener" class="project-card reveal reveal-delay-2">
-          <!-- TODO: add StudyDesk hero screenshot at /StudyDesk_hero.png (course list with grades, or the Pomodoro "Save session?" sheet) -->
-          <div class="card-hero card-hero-placeholder"><span>TODO · StudyDesk hero</span></div>
+          <div class="card-screens">
+            <div class="screen-item">
+              <div class="screen-frame"><img class="zoomable" src="StudyDesk_grades.png" alt="StudyDesk grades view" loading="lazy"/></div>
+              <div class="screen-caption">Grades</div>
+            </div>
+            <div class="screen-item">
+              <div class="screen-frame"><img class="zoomable" src="StudyDesk_Pomodoro.png" alt="StudyDesk Pomodoro logger" loading="lazy"/></div>
+              <div class="screen-caption">Pomodoro</div>
+            </div>
+          </div>
           <span class="project-num">003</span>
           <div class="project-name">StudyDesk</div>
           <p class="project-desc">Study planner for IB (1–7) and US (4.0) grading. Course list, Pomodoro logger, session journal. Writes into Nexus Studies over Realtime — what you log here surfaces in the hub.</p>
@@ -603,30 +696,24 @@
               </defs>
               <rect width="100%" height="100%" fill="url(#diagGrid)"/>
 
-              <!-- LimeLog -->
               <rect x="14" y="28" width="150" height="54" fill="none" stroke="#A3E635" stroke-width="1"/>
               <text x="89" y="54" text-anchor="middle" fill="#F5F5F5" font-family="Oxanium, sans-serif" font-weight="700" font-size="15">LimeLog</text>
               <text x="89" y="71" text-anchor="middle" fill="#737373" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">WRITER</text>
 
-              <!-- StudyDesk -->
               <rect x="14" y="138" width="150" height="54" fill="none" stroke="#A3E635" stroke-width="1"/>
               <text x="89" y="164" text-anchor="middle" fill="#F5F5F5" font-family="Oxanium, sans-serif" font-weight="700" font-size="15">StudyDesk</text>
               <text x="89" y="181" text-anchor="middle" fill="#737373" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">WRITER</text>
 
-              <!-- Supabase Realtime (center) -->
               <rect x="230" y="83" width="150" height="54" fill="#A3E635" fill-opacity="0.06" stroke="#A3E635" stroke-width="1" stroke-dasharray="4 3"/>
               <text x="305" y="109" text-anchor="middle" fill="#A3E635" font-family="Oxanium, sans-serif" font-weight="700" font-size="14">Supabase</text>
               <text x="305" y="126" text-anchor="middle" fill="#A3E635" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">REALTIME · ~1.5s</text>
 
-              <!-- Nexus -->
               <rect x="446" y="83" width="150" height="54" fill="none" stroke="#A3E635" stroke-width="1.5"/>
               <text x="521" y="106" text-anchor="middle" fill="#F5F5F5" font-family="Oxanium, sans-serif" font-weight="700" font-size="15">Nexus</text>
               <text x="521" y="124" text-anchor="middle" fill="#A3E635" font-family="'Space Mono', monospace" font-size="9" letter-spacing="2">HUB · READER</text>
 
-              <!-- Arrows in -->
               <path d="M 164 55 L 225 95" fill="none" stroke="#A3E635" stroke-width="1.1" stroke-opacity="0.65" marker-end="url(#arrowHead)"/>
               <path d="M 164 165 L 225 125" fill="none" stroke="#A3E635" stroke-width="1.1" stroke-opacity="0.65" marker-end="url(#arrowHead)"/>
-              <!-- Arrow out -->
               <path d="M 380 110 L 441 110" fill="none" stroke="#A3E635" stroke-width="1.2" stroke-opacity="0.75" marker-end="url(#arrowHead)"/>
             </svg>
             <div class="suite-diagram-caption">// last-write-wins · offline outbox · ~1.5s p50 latency</div>
@@ -716,6 +803,13 @@
     <span class="footer-meta">Helsinki · 2026</span>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Image lightbox">
+    <button class="lightbox-close" type="button" aria-label="Close">×</button>
+    <img class="lightbox-img" alt=""/>
+    <div class="lightbox-caption"></div>
+  </div>
+
   <script>
     function go(e, id) {
       if (e) e.preventDefault();
@@ -730,6 +824,45 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // LIGHTBOX
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('.lightbox-img');
+    const lbCap = lb.querySelector('.lightbox-caption');
+    const lbClose = lb.querySelector('.lightbox-close');
+
+    function captionFor(img) {
+      const item = img.closest('.screen-item');
+      const cap = item && item.querySelector('.screen-caption');
+      return cap ? cap.textContent.trim() : (img.alt || '');
+    }
+    function openLightbox(img) {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt || '';
+      lbCap.textContent = captionFor(img);
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('img.zoomable').forEach(img => {
+      img.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        openLightbox(img);
+      });
+    });
+    lb.addEventListener('click', e => {
+      if (e.target === lb || e.target === lbImg) closeLightbox();
+    });
+    lbClose.addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
+    });
   </script>
 </body>
 </html>
