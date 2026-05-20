@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Limecore</title>
+  <meta name="description" content="Build logs and architecture writeups from Limecore — a one-person studio in Helsinki." />
+  <link rel="canonical" href="https://limecore.vercel.app/blog/" />
+  <meta property="og:title" content="Blog — Limecore" />
+  <meta property="og:description" content="Build logs and architecture writeups from Limecore — a one-person studio in Helsinki." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://limecore.vercel.app/blog/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Blog — Limecore" />
+  <meta name="twitter:description" content="Build logs and architecture writeups from Limecore — a one-person studio in Helsinki." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #0A0A0A;
+      --surface: #111111;
+      --border:  #1A1A1A;
+      --accent:  #A3E635;
+      --text:    #F5F5F5;
+      --muted:   #737373;
+      --fdisplay: 'Oxanium', sans-serif;
+      --fmono:    'Space Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fdisplay);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(163,230,53,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(163,230,53,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: var(--fdisplay); font-weight: 800; font-size: 1rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: var(--fmono); font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    main { position: relative; z-index: 1; flex: 1; }
+
+    .blog-hero {
+      max-width: 900px; margin: 0 auto;
+      padding: 100px 48px 60px;
+    }
+    .blog-eyebrow {
+      font-family: var(--fmono); font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
+    }
+    .blog-title {
+      font-family: var(--fdisplay); font-weight: 800;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      letter-spacing: -0.02em; line-height: 1;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .blog-subtitle {
+      font-family: var(--fmono); font-size: 0.78rem;
+      color: var(--muted); letter-spacing: 0.04em; line-height: 1.7;
+      max-width: 620px;
+    }
+
+    .post-list {
+      max-width: 900px; margin: 0 auto;
+      padding: 20px 48px 100px;
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .post-list { background: transparent; border: none; padding-bottom: 100px; }
+    .post-item {
+      display: block;
+      background: var(--bg);
+      padding: 36px 32px;
+      text-decoration: none; color: inherit;
+      transition: background 0.2s;
+      position: relative; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .post-item:hover { background: var(--surface); }
+    .post-item::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 3px; height: 0; background: var(--accent); transition: height 0.3s ease;
+    }
+    .post-item:hover::before { height: 100%; }
+
+    .post-meta {
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
+    }
+    .post-meta-num { color: var(--accent); opacity: 0.55; }
+    .post-item-title {
+      font-family: var(--fdisplay); font-weight: 700;
+      font-size: clamp(1.4rem, 2.8vw, 1.8rem);
+      letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 14px;
+    }
+    .post-item-desc {
+      font-family: var(--fmono); font-size: 0.74rem;
+      color: var(--muted); line-height: 1.85;
+      max-width: 680px; margin-bottom: 20px;
+    }
+    .post-item-cta {
+      font-family: var(--fmono); font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+    }
+    .post-item:hover .post-item-cta { color: var(--accent); }
+
+    .empty-state {
+      max-width: 900px; margin: 60px auto;
+      padding: 0 48px;
+      font-family: var(--fmono); font-size: 0.72rem;
+      color: var(--muted); letter-spacing: 0.05em; line-height: 1.9;
+    }
+
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .footer-logo { font-family: var(--fdisplay); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+    .footer-meta { font-family: var(--fmono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; margin-left: auto; }
+    .footer-links { display: flex; gap: 20px; align-items: center; }
+    .footer-link { font-family: var(--fmono); font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+    .footer-link:hover { color: var(--accent); }
+    .footer-link-todo { opacity: 0.45; cursor: not-allowed; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .blog-hero { padding: 64px 24px 36px; }
+      .post-list { padding: 12px 24px 80px; }
+      .post-item { padding: 28px 24px; }
+      footer { padding: 24px; }
+      .footer-meta { margin-left: 0; width: 100%; order: 99; }
+    }
+    ::selection { background: var(--accent); color: #0A0A0A; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Limecore</a>
+    <ul class="nav-links">
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#suite">The Suite</a></li>
+      <li><a href="/#build">How I build</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="https://github.com/Limekana" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <header class="blog-hero">
+      <div class="blog-eyebrow">// Blog</div>
+      <h1 class="blog-title">Build logs</h1>
+      <p class="blog-subtitle">Architecture writeups and shipping notes from Limecore. Local-first, AI-in-the-loop, one person at a time.</p>
+    </header>
+
+    <section class="post-list">
+      <a href="/blog/vibe-coding-through-high-school/" class="post-item">
+        <div class="post-meta">
+          <span class="post-meta-num">001</span>
+          <span>2026-05-20</span>
+          <span>· 10 min read</span>
+        </div>
+        <h2 class="post-item-title">Vibe coding through high school</h2>
+        <p class="post-item-desc">I'm 16, from Helsinki, and over the past few months I've built three Android apps I now use every day. My actual coding ability when I started was close to zero. Here's what AI was good at, what it wasn't, and what only I could do.</p>
+        <span class="post-item-cta">Read ↗</span>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <span class="footer-logo">Limecore</span>
+    <div class="footer-links">
+      <a href="/" class="footer-link">Home</a>
+      <a href="https://github.com/Limekana" target="_blank" rel="noopener" class="footer-link">GitHub ↗</a>
+      <a href="#" class="footer-link footer-link-todo" aria-label="X / Twitter (placeholder)">X ↗</a>
+      <a href="#" class="footer-link footer-link-todo" aria-label="Email (placeholder)">Email ↗</a>
+    </div>
+    <span class="footer-meta">Helsinki · 2026</span>
+  </footer>
+
+</body>
+</html>

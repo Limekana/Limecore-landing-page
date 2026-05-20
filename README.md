@@ -9,7 +9,7 @@ Independent software studio landing page. Single `index.html`, deployed via Verc
 - [x] ~~Add StudyDesk hero screenshot~~ — Grades + Pomodoro shipped.
 - [ ] Open-source LimeLog and Nexus repos; wire real GitHub URLs into the card link slots.
 - [ ] Flip on F-Droid badges as submissions are accepted (LimeLog, StudyDesk, Nexus).
-- [ ] Ship `/blog` and replace the `Blog ↗` placeholder href. First post: Realtime cross-app sync architecture.
+- [x] ~~Ship `/blog`~~ — live at `/blog/`, first post "Vibe coding through high school" at `/blog/vibe-coding-through-high-school/`. (Cross-app sync architecture post still pending as post 002.)
 - [ ] Replace footer X and Email placeholders with real handle / address.
 
 ## Stack

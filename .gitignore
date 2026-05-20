@@ -1,3 +1,7 @@
 .claude/
 *.local
 .DS_Store
+
+# Internal planning / handoff docs — not for the public repo
+*handoff*.md
+*-handoff.md

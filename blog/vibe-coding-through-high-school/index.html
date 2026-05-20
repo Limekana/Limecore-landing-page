@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibe coding through high school — Limecore</title>
+  <meta name="description" content="I'm 16, from Helsinki, and over the past few months I've built three Android apps I now use every day. My actual coding ability when I started was close to zero. Here's what AI was good at, what it wasn't, and what only I could do." />
+  <link rel="canonical" href="https://limecore.vercel.app/blog/vibe-coding-through-high-school" />
+  <meta property="og:title" content="Vibe coding through high school — Limecore" />
+  <meta property="og:description" content="I'm 16, from Helsinki, and over the past few months I've built three Android apps I now use every day. My actual coding ability when I started was close to zero. Here's what AI was good at, what it wasn't, and what only I could do." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://limecore.vercel.app/blog/vibe-coding-through-high-school" />
+  <meta property="article:published_time" content="2026-05-20" />
+  <meta property="article:author" content="Limekana" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vibe coding through high school — Limecore" />
+  <meta name="twitter:description" content="What AI was good at, what it wasn't, and what only I could do — building three Android apps as a 16-year-old in Helsinki." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #0A0A0A;
+      --surface: #111111;
+      --border:  #1A1A1A;
+      --accent:  #A3E635;
+      --text:    #F5F5F5;
+      --muted:   #737373;
+      --soft:    #C2C2C2;
+      --fdisplay: 'Oxanium', sans-serif;
+      --fmono:    'Space Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fdisplay);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(163,230,53,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(163,230,53,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: var(--fdisplay); font-weight: 800; font-size: 1rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: var(--fmono); font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    main { position: relative; z-index: 1; flex: 1; }
+
+    .post-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 48px 120px;
+    }
+
+    .post-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--fmono); font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+      margin-bottom: 48px;
+    }
+    .post-back:hover { color: var(--accent); }
+
+    .post-header { margin-bottom: 56px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .post-eyebrow {
+      font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
+      display: flex; gap: 16px; align-items: center;
+    }
+    .post-eyebrow .dot { width: 4px; height: 4px; background: var(--muted); border-radius: 50%; }
+    .post-eyebrow .date { color: var(--muted); }
+
+    .post-title {
+      font-family: var(--fdisplay); font-weight: 800;
+      font-size: clamp(2rem, 5.5vw, 3rem);
+      letter-spacing: -0.02em; line-height: 1.05;
+      margin-bottom: 24px;
+    }
+    .post-lede {
+      font-family: var(--fdisplay); font-weight: 400;
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      color: var(--soft); line-height: 1.7;
+    }
+
+    /* POST BODY TYPOGRAPHY */
+    .post-body { font-family: var(--fdisplay); font-weight: 400; color: var(--soft); }
+    .post-body p {
+      font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+      line-height: 1.85;
+      margin-bottom: 22px;
+    }
+    .post-body p:last-child { margin-bottom: 0; }
+
+    .post-body h2 {
+      font-family: var(--fdisplay); font-weight: 700;
+      font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+      letter-spacing: -0.01em; text-transform: none;
+      color: var(--text);
+      margin: 56px 0 22px;
+      padding-top: 28px; border-top: 1px solid var(--border);
+      position: relative;
+    }
+    .post-body h2::before {
+      content: '//';
+      font-family: var(--fmono); font-size: 0.7rem;
+      color: var(--accent); opacity: 0.7;
+      margin-right: 12px; letter-spacing: 0.05em;
+    }
+
+    .post-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: opacity 0.2s;
+    }
+    .post-body a:hover { opacity: 0.75; }
+
+    .post-body strong { color: var(--text); font-weight: 700; }
+    .post-body em { color: var(--text); font-style: italic; }
+
+    .post-body code {
+      font-family: var(--fmono); font-size: 0.85em;
+      background: var(--surface); color: var(--accent);
+      padding: 2px 6px; border: 1px solid var(--border);
+    }
+
+    .post-body ul {
+      margin: 16px 0 28px;
+      padding-left: 0;
+      list-style: none;
+    }
+    .post-body ul li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 10px;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      line-height: 1.7;
+    }
+    .post-body ul li::before {
+      content: '';
+      position: absolute; left: 0; top: 0.7em;
+      width: 8px; height: 1px; background: var(--accent);
+    }
+
+    .post-footer {
+      margin-top: 80px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .post-footer-meta {
+      font-family: var(--fmono); font-size: 0.6rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .post-footer-back {
+      font-family: var(--fmono); font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      border: 1px solid var(--border); padding: 10px 18px;
+      transition: all 0.2s;
+    }
+    .post-footer-back:hover { border-color: var(--accent); color: var(--accent); }
+
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .footer-logo { font-family: var(--fdisplay); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+    .footer-meta { font-family: var(--fmono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; margin-left: auto; }
+    .footer-links { display: flex; gap: 20px; align-items: center; }
+    .footer-link { font-family: var(--fmono); font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+    .footer-link:hover { color: var(--accent); }
+    .footer-link-todo { opacity: 0.45; cursor: not-allowed; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .post-wrap { padding: 56px 22px 80px; }
+      .post-back { margin-bottom: 32px; }
+      .post-header { margin-bottom: 40px; padding-bottom: 24px; }
+      .post-body h2 { margin: 40px 0 18px; padding-top: 22px; }
+      footer { padding: 24px; }
+      .footer-meta { margin-left: 0; width: 100%; order: 99; }
+    }
+    ::selection { background: var(--accent); color: #0A0A0A; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Limecore</a>
+    <ul class="nav-links">
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#suite">The Suite</a></li>
+      <li><a href="/#build">How I build</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="https://github.com/Limekana" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <article class="post-wrap">
+      <a href="/blog/" class="post-back">← All posts</a>
+
+      <header class="post-header">
+        <div class="post-eyebrow">
+          <span>001</span>
+          <span class="dot"></span>
+          <span class="date">2026-05-20</span>
+          <span class="dot"></span>
+          <span>10 min read</span>
+        </div>
+        <h1 class="post-title">Vibe coding through high school</h1>
+        <p class="post-lede">I'm 16, from Helsinki, and over the past few months I've built three Android apps I now use every day. My actual coding ability when I started was close to zero. I knew what a function was, vaguely. Everything I've shipped runs on a different kind of skill — prompting, taste, and being stubborn about which features get to stay.</p>
+      </header>
+
+      <div class="post-body">
+        <p>The three apps are one suite. I call it Limecore Nexus OS.</p>
+
+        <p>StudyDesk is a mobile-first study planner on React 19 and Vite 7. The question it's trying to answer isn't "what do I have to do?" but "what do I do right now?" Limelog is a workout tracker for periodized strength programs, React 18 with Zustand. Nexus Command Center is the hub — a dashboard on Dexie and IndexedDB locally, pulling finance, studies, fitness and tasks into one place.</p>
+
+        <p>All three are independent apps, but they write to the same Supabase Postgres backend with Row-Level Security keeping each user's data separate. Anything I log in Limelog shows up in Nexus within about 1.5 seconds via Postgres Realtime. Same with a Pomodoro session in StudyDesk. That part — three apps sharing one live data graph — is the thing I can't find anywhere else on the consumer side, and it's the reason any of this is worth writing about.</p>
+
+        <h2>What Claude was great at</h2>
+
+        <p>I didn't expect Claude to be better at architecture than at code. I came in assuming it was a fancy autocomplete and I'd be making the decisions. What actually happened is that it pushed back on bad ideas before I'd written a line.</p>
+
+        <p>The clearest example was sync. When I first wanted Limelog data to show up in Nexus, I assumed I'd have to build an API on the Limelog side, scrape it from Nexus, and stitch the two copies together somehow. It looked at my setup and basically said: you have two apps and one Supabase project, so have both apps write to the same tables and let Postgres Realtime push updates to whoever's subscribed. Use RLS to keep per-user data separated. That was it.</p>
+
+        <p>That single redirect saved me a week and a much worse architecture. I would have built scrapers. I have no idea why, but I would have.</p>
+
+        <p>Pure math it gets right on the first try. The GPA calculator in StudyDesk toggles between the US 4.0 scale and the IB 1-7 scale — I described the conversion rule and got working code back, no bugs, no second pass. Same with the financial data in Nexus. Finnhub for stocks, Yahoo as a fallback, CoinGecko for crypto, all with retry logic if a provider goes down. I knew only that Finnhub existed before that conversation. Claude found them, wired them up, and handled the failure cases. That would have taken me days even if I'd had real coding skill.</p>
+
+        <p>The exercise library is another good one. Limelog ships with 140+ built-in exercises tagged by movement pattern, equipment, and muscle group. I described what I wanted and got the structured library back. If I'd had to type all 140 by hand I would have, but I'm glad I didn't.</p>
+
+        <p>Looking back, the pattern is pretty clear. Claude was strongest exactly where I had a clear, finite problem. "Here is the rule, write the code." "Here are the requirements, find me the tools." When the question had a right answer, it found the right answer faster than I could have looked it up.</p>
+
+        <h2>What Claude was terrible at</h2>
+
+        <p>Anything that needs taste or eyes is still not there.</p>
+
+        <p>UI was the first wall I hit. Claude's default visual instincts are bad. Not technically broken — the components render, the spacing is sort of fine — but the result always looks like every other AI-built app you've seen. I ended up designing in a separate tool, Kombai, which is purpose-built for UI. I'd get it to generate theme variations and wireframes, pick one, then feed that into Claude for the implementation. Even then I had to push back constantly to keep it from drifting back toward the safe default look.</p>
+
+        <p>The clearest failure was an opening animation I wanted for Nexus. I had this whole idea of a futuristic vault-opening sequence when the app launches. I described it carefully. Claude Code told me it had implemented it. It hadn't. The animation file existed, the function was there, but the actual animation step in the middle was empty. Nothing happened on screen. It told me it was done when it wasn't, and I caught it after updating it to my phone. I tried again in Claude Design and got further, but the result was choppy and never quite felt right. I shelved the animation. I don't think it's something you can vibe-code yet — it'll probably need another model generation.</p>
+
+        <p>Context drift was the other constant problem, especially when I was building StudyDesk on the free tier with Sonnet. I'd ask Claude to fix one component and a completely unrelated view would silently break. The thing it changed wasn't related to the thing that broke, and what it told me it had done didn't always match what it had actually done. So I'd spend an hour fixing the original bug, find a screen I hadn't touched in a week now blank, and start the cycle over.</p>
+
+        <p>Honestly Claude is great when there's one right answer and bad when there's a feel involved. Whenever I had to get across "this should look like a vault, not a fade" or "the workouts page should feel heavy, not airy," I was working against the model's defaults the whole time.</p>
+
+        <h2>The things only I could do</h2>
+
+        <p>The first version of StudyDesk had way too many features. I just like adding features, I think. There was a habit tracker, a streak counter, an analytics page nobody was ever going to look at. None of it was being used, by me or anyone else. I got some feedback on it and cut everything except the exam and assignment calendar, the Pomodoro timer and the next up page, because those were the only three things I was actually opening the app for. That wasn't an engineering call. It was a "what did I open today" call, and only I could make it.</p>
+
+        <p>Limelog exists because I spent most of last basketball season on the sidelines with back stress injuries. I wanted to get back to working out, even if it was something lighter in the weight room and asked my AI if there was an app that would work in my situation or if it were easier just to build one from scratch. The injury-restriction flags and the phase awareness in Limelog aren't things I picked up from competitor research. They're features I needed because my own training was broken and nothing else handled it.</p>
+
+        <p>The design direction too. Limelog looks brutalist because heavy lifting feels brutalist. You don't want a soft-rounded button with a pastel gradient when you're about to fail a rep. StudyDesk looks more like a book because studying is calm and the UI shouldn't be yelling. Both of those came from feeling whether the app matched the mood of what it was for, not from following a design system.</p>
+
+        <p>This part doesn't transfer to AI yet. Claude doesn't know how my back felt last March or that I check StudyDesk between classes and Limelog under bad gym lighting. The product decisions came out of those situations, and I don't think you prompt your way there without living through them.</p>
+
+        <h2>Things I still don't understand about my own apps</h2>
+
+        <p>The codebase is, for me, a partially-understood black box. The apps work. I've used them every day for months, so I trust the code. I couldn't explain any of it to a real engineer though.</p>
+
+        <p>A few specific examples. There's a drift-correction thing on the Pomodoro timer that recomputes elapsed time when the app comes back from the background, so the timer doesn't desync if I lock my phone for ten minutes. I asked for it, Claude built it, I tested that it works. I could not walk you through the function.</p>
+
+        <p>There are last-write-wins merge utilities and BEFORE UPDATE database triggers handling the multi-device conflict cases. What happens if I edit the same workout on my phone and my tablet within seconds of each other. They handle it. How they handle it is somewhere in Claude's head and the repo, not in mine.</p>
+
+        <p>The security layer is similar. PBKDF2-SHA256 hashing the local PIN with 250,000 iterations, constant-time comparison. I know what those words mean now, kind of. I didn't pick the iteration count. I trusted Claude that 250,000 was right, and "verified" by asking Claude again in a fresh context, which I realize doesn't really count as independent. There's also a pre-commit hook that scans my commits for credentials before they hit GitHub. Claude wrote it. I just run it.</p>
+
+        <p>The most honest one is that I barely understand the terminal commands I use to push code and build the Android version through Capacitor. I have a list of commands in my head, because I've used them so many times, but don't really understand what they mean. If something errors out, I paste the error back into Claude. That is the entire workflow.</p>
+
+        <h2>Would I do it again</h2>
+
+        <p>Yeah.</p>
+
+        <p>What vibe coding actually changed for me isn't that I'm faster, although I am. It's where the bottleneck sits now. The bottleneck used to be syntax, and you had to spend years on it before you could ship anything real. Now syntax is basically free. The bottleneck moved up the stack — architecture, product decisions, being honest with yourself about which features matter and which ones you just like building.</p>
+
+        <p>Those are things I can get better at by actually doing them. So that's what I'm doing.</p>
+
+        <h2>Production footprint</h2>
+
+        <ul>
+          <li>Limecore: <a href="https://limecore.vercel.app" target="_blank" rel="noopener">limecore.vercel.app</a></li>
+          <li>Nexus Command Center: <a href="https://github.com/Limekana/nexus-command-center" target="_blank" rel="noopener">github.com/Limekana/nexus-command-center</a></li>
+          <li>StudyDesk: <a href="https://github.com/Limekana/studydesk" target="_blank" rel="noopener">github.com/Limekana/studydesk</a></li>
+          <li>Limelog: <a href="https://github.com/Limekana/limelog" target="_blank" rel="noopener">github.com/Limekana/limelog</a></li>
+        </ul>
+      </div>
+
+      <div class="post-footer">
+        <span class="post-footer-meta">// Limecore · Helsinki · 2026-05-20</span>
+        <a href="/blog/" class="post-footer-back">← All posts</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <span class="footer-logo">Limecore</span>
+    <div class="footer-links">
+      <a href="/" class="footer-link">Home</a>
+      <a href="/blog/" class="footer-link">Blog</a>
+      <a href="https://github.com/Limekana" target="_blank" rel="noopener" class="footer-link">GitHub ↗</a>
+      <a href="#" class="footer-link footer-link-todo" aria-label="X / Twitter (placeholder)">X ↗</a>
+      <a href="#" class="footer-link footer-link-todo" aria-label="Email (placeholder)">Email ↗</a>
+    </div>
+    <span class="footer-meta">Helsinki · 2026</span>
+  </footer>
+
+</body>
+</html>
