@@ -10,7 +10,7 @@ Independent software studio landing page. Single `index.html`, deployed via Verc
 - [x] ~~Open-source LimeLog and Nexus repos; wire real GitHub URLs into the card link slots.~~ — live and linked.
 - [ ] Flip on F-Droid badges as submissions are accepted (LimeLog, StudyDesk, Nexus).
 - [x] ~~Ship `/blog`~~ — live at `/blog/`, first post "Vibe coding through high school" at `/blog/vibe-coding-through-high-school/`. (Cross-app sync architecture post still pending as post 002.)
-- [ ] Replace footer X and Email placeholders with real handle / address.
+- [x] ~~Replace footer X and Email placeholders with real handle / address.~~ — `x.com/l1m3core` and `l1m3core@gmail.com` live across landing + blog.
 
 ## Stack
 
